@@ -14,12 +14,4 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `mcp__x402__redeem_invite(code="YOUR_CODE")`
-   - Or send USDC on Base to your wallet address
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| "MCP tool not found" | Run install command, restart Claude Code |
-| "Insufficient balance" | Fund wallet with USDC |
-| "Payment failed" | Check balance, retry (transient errors) |
+   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)

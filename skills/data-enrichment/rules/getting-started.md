@@ -14,7 +14,7 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `mcp__x402__redeem_invite(code="YOUR_CODE")`
-   - Or send USDC on Base to your wallet address
+   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
 
 ## Troubleshooting
 
@@ -26,15 +26,3 @@
 | "No match found" | Try different identifiers (email vs LinkedIn) or use search first |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
 | "400 Bad Request" | Verify parameter names match exactly from examples in SKILL.md |
-
-## Pricing Reference
-
-| Endpoint | Price |
-|----------|-------|
-| people-enrich | $0.0495 |
-| org-enrich | $0.0495 |
-| people-search | $0.02 |
-| org-search | $0.02 |
-| linkedin-scrape | $0.04 |
-| contacts-enrich | $0.20 |
-| bulk endpoints | $0.495 (for 10) |
