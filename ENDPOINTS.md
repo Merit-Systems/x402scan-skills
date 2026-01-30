@@ -2,6 +2,8 @@
 
 All endpoints at `https://enrichx402.com/api/`. Prices include 2x markup on base cost.
 
+> **IMPORTANT:** Do not guess endpoint paths. All endpoints include a provider prefix (e.g., `/apollo/`, `/grok/`, `/clado/`). See "Common Mistakes" at the end of this document.
+
 ## Data Enrichment (Apollo + Clado)
 
 | Endpoint | Method | Price | Description |
@@ -100,3 +102,30 @@ mcp__x402__fetch(
 ```
 
 The MCP handles wallet authentication and x402 payment automatically.
+
+## Common Mistakes
+
+**Never guess endpoint paths.** All endpoints require the correct provider prefix.
+
+| Incorrect (guessed) | Correct | Error |
+|---------------------|---------|-------|
+| `/api/people/search` | `/api/apollo/people-search` | 405 |
+| `/api/people-enrich` | `/api/apollo/people-enrich` | 405 |
+| `/api/org/search` | `/api/apollo/org-search` | 405 |
+| `/api/grok/search` | `/api/grok/x-search` | 405 |
+| `/api/twitter/search` | `/api/grok/x-search` | 405 |
+| `/api/linkedin/scrape` | `/api/clado/linkedin-scrape` | 405 |
+| `/api/maps/search` | `/api/google-maps/text-search/partial` | 405 |
+
+**Wrong parameter names will also fail:**
+
+| Incorrect | Correct |
+|-----------|---------|
+| `{"name": "John Doe"}` | `{"first_name": "John", "last_name": "Doe"}` |
+| `{"company": "Acme"}` | `{"organization_name": "Acme"}` |
+| `{"url": "..."}` | `{"linkedin_url": "..."}` |
+
+**If unsure:**
+1. Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
+2. Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters
+3. Consult the skill documentation (SKILL.md files)

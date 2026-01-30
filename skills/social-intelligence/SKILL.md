@@ -19,6 +19,8 @@ description: |
   - "user's posts", "timeline", "recent activity"
 
   Use mcp__x402__fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+
+  IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
 
 # Social Intelligence with x402 APIs
@@ -170,6 +172,14 @@ mcp__x402__fetch(
 - Comment timestamps
 
 ## Workflows
+
+### Standard
+
+- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
+- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
+- [ ] Call endpoint with `mcp__x402__fetch`
+- [ ] Parse and present results
 
 ### Brand Monitoring
 

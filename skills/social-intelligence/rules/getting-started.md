@@ -23,3 +23,4 @@
 | "MCP tool not found" | Run install command, restart Claude Code |
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
+| "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |

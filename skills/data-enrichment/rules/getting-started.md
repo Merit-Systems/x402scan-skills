@@ -24,6 +24,8 @@
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
 | "No match found" | Try different identifiers (email vs LinkedIn) or use search first |
+| "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
+| "400 Bad Request" | Verify parameter names match exactly from examples in SKILL.md |
 
 ## Pricing Reference
 

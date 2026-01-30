@@ -19,6 +19,8 @@ description: |
 
   ALWAYS use mcp__x402__fetch for enrichx402.com endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
+
+  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`/api/apollo/...` or `/api/clado/...`).
 ---
 
 # Data Enrichment with x402 APIs
@@ -47,7 +49,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 ### Standard Enrichment
 
 - [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
-- [ ] (Optional) Check pricing: `mcp__x402__check_endpoint_schema`
+- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
+- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
 - [ ] Call endpoint with `mcp__x402__fetch`
 - [ ] Parse and present results
 

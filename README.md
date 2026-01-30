@@ -63,6 +63,24 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
    )
    ```
 
+## IMPORTANT: Do Not Guess Endpoints
+
+**Never guess or invent endpoint paths.** All endpoints have specific paths that include a provider prefix:
+
+| Wrong (guessed) | Correct |
+|-----------------|---------|
+| `/api/people/search` | `/api/apollo/people-search` |
+| `/api/people-enrich` | `/api/apollo/people-enrich` |
+| `/api/grok/search` | `/api/grok/x-search` |
+| `/api/twitter/search` | `/api/grok/x-search` |
+
+If you don't know the exact endpoint path:
+1. **Use `discover_api_endpoints`** to list all available endpoints
+2. **Consult the skill documentation** (SKILL.md files have correct paths)
+3. **Check ENDPOINTS.md** for the complete reference
+
+Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API calls.
+
 ## Funding Your Wallet
 
 If your balance is low:
