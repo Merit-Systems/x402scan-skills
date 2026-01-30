@@ -4,7 +4,7 @@
 
 1. **Install the x402scan MCP:**
    ```bash
-   npx @x402scan/mcp install --client claude-code
+   npx @x402scan/mcp install --client claude-code -y
    ```
 
 2. **Check wallet:**
