@@ -54,8 +54,7 @@ mcp__x402__redeem_invite(code="YOUR_CODE")
 ## Deposit USDC
 
 1. Get your wallet address: `mcp__x402__get_wallet_info`
-2. Send USDC on **Base network** to that address
-3. Funds available immediately after confirmation
+2. Use it to add funds in the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
 
 **Important**: Only Base network USDC. Other networks or tokens will be lost.
 
