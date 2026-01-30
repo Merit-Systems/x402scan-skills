@@ -1,6 +1,8 @@
 # x402scan Skills
 
-Skills for accessing x402-protected APIs at enrichx402.com using the x402scan MCP.
+Skills for accessing x402-protected APIs using the x402scan MCP.
+
+Covers enrichx402.com (data enrichment) and stablestudio.io (media generation).
 
 ## Prerequisites
 
@@ -30,6 +32,8 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
+| [wallet](skills/wallet/) | Balance, deposits, invite codes | x402 wallet |
+| [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
 | [data-enrichment](skills/data-enrichment/) | Person & company profiles | Apollo, Clado |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
