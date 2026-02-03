@@ -16,7 +16,7 @@ description: |
   - "business details", "opening hours", "reviews for"
   - "places in", "what's near", "directions to"
 
-  Use mcp__x402__fetch for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+  Use the x402scan CLI for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
 ---
 
 # Local Search with Google Maps
@@ -25,7 +25,7 @@ Access Google Maps Places API through x402-protected endpoints.
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 ## Quick Reference
 
@@ -44,14 +44,10 @@ See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guid
 
 Search for places by text query:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/text-search/partial",
-  method="POST",
-  body={
-    "textQuery": "coffee shops in downtown Seattle"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/text-search/partial" \
+  --method POST \
+  --body '{"textQuery": "coffee shops in downtown Seattle"}'
 ```
 
 **Parameters:**
@@ -67,11 +63,10 @@ mcp__x402__fetch(
 
 Search for places near a location:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/nearby-search/partial",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/nearby-search/partial" \
+  --method POST \
+  --body '{
     "locationRestriction": {
       "circle": {
         "center": {
@@ -82,8 +77,7 @@ mcp__x402__fetch(
       }
     },
     "includedTypes": ["restaurant", "cafe"]
-  }
-)
+  }'
 ```
 
 **Parameters:**
@@ -97,14 +91,10 @@ mcp__x402__fetch(
 
 Get detailed info for a specific place:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/place-details/partial",
-  method="POST",
-  body={
-    "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/place-details/partial" \
+  --method POST \
+  --body '{"placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"}'
 ```
 
 **Input:**
@@ -134,25 +124,21 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/text-search/partial",
-  method="POST",
-  body={"textQuery": "Italian restaurants downtown Portland"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/text-search/partial" \
+  --method POST \
+  --body '{"textQuery": "Italian restaurants downtown Portland"}'
 ```
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "ChIJ..."}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/place-details/full" \
+  --method POST \
+  --body '{"placeId": "ChIJ..."}'
 ```
 
 ### Nearby Search with Filters
@@ -161,11 +147,10 @@ mcp__x402__fetch(
 - [ ] Search with location restriction and filters
 - [ ] Present sorted results
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/nearby-search/partial",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/nearby-search/partial" \
+  --method POST \
+  --body '{
     "locationRestriction": {
       "circle": {
         "center": {"latitude": 40.7128, "longitude": -74.0060},
@@ -175,8 +160,7 @@ mcp__x402__fetch(
     "includedTypes": ["restaurant"],
     "minRating": 4.0,
     "openNow": true
-  }
-)
+  }'
 ```
 
 ### Compare Places with Reviews
@@ -185,12 +169,10 @@ mcp__x402__fetch(
 - [ ] Fetch full details for each candidate
 - [ ] Compare ratings, reviews, and amenities
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "place_id_here"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/google-maps/place-details/full" \
+  --method POST \
+  --body '{"placeId": "place_id_here"}'
 ```
 
 ## Cost Optimization

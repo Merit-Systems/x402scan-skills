@@ -18,7 +18,7 @@ description: |
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
 
-  Use mcp__x402__fetch for these endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+  Use the x402scan CLI for these endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
 ---
 
 # Web Research with x402 APIs
@@ -27,7 +27,7 @@ Access Exa (neural search) and Firecrawl (web scraping) through x402-protected e
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 ## Quick Reference
 
@@ -58,16 +58,14 @@ See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 
 Semantic search that understands meaning, not just keywords:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/search" \
+  --method POST \
+  --body '{
     "query": "startups building AI agents for customer support",
     "numResults": 10,
     "type": "neural"
-  }
-)
+  }'
 ```
 
 **Options:**
@@ -84,15 +82,13 @@ mcp__x402__fetch(
 
 Find pages semantically similar to a reference URL:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/find-similar",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/find-similar" \
+  --method POST \
+  --body '{
     "url": "https://example.com/article-i-like",
     "numResults": 10
-  }
-)
+  }'
 ```
 
 Great for:
@@ -104,17 +100,15 @@ Great for:
 
 Get clean, structured text from URLs:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/contents",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/contents" \
+  --method POST \
+  --body '{
     "urls": [
       "https://example.com/article1",
       "https://example.com/article2"
     ]
-  }
-)
+  }'
 ```
 
 **Options:**
@@ -128,14 +122,10 @@ Cheapest option ($0.002) when you already have URLs and just need the content.
 
 Get factual answers to questions:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/answer",
-  method="POST",
-  body={
-    "query": "What is the population of Tokyo?"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/answer" \
+  --method POST \
+  --body '{"query": "What is the population of Tokyo?"}'
 ```
 
 Returns a direct answer with source citations. Best for:
@@ -147,14 +137,10 @@ Returns a direct answer with source citations. Best for:
 
 Scrape a single page to clean markdown:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/firecrawl/scrape",
-  method="POST",
-  body={
-    "url": "https://example.com/page-to-scrape"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/firecrawl/scrape" \
+  --method POST \
+  --body '{"url": "https://example.com/page-to-scrape"}'
 ```
 
 **Options:**
@@ -173,15 +159,13 @@ mcp__x402__fetch(
 
 Web search with automatic scraping of results:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/firecrawl/search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/firecrawl/search" \
+  --method POST \
+  --body '{
     "query": "best practices for react server components",
     "limit": 5
-  }
-)
+  }'
 ```
 
 **Options:**
@@ -195,34 +179,28 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
 - [ ] Synthesize findings
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/search",
-  method="POST",
-  body={"query": "AI agents in healthcare 2024", "numResults": 15}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/search" \
+  --method POST \
+  --body '{"query": "AI agents in healthcare 2024", "numResults": 15}'
 ```
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/find-similar",
-  method="POST",
-  body={"url": "https://best-article-found.com"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/find-similar" \
+  --method POST \
+  --body '{"url": "https://best-article-found.com"}'
 ```
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/exa/contents",
-  method="POST",
-  body={"urls": ["url1", "url2", "url3"]}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/contents" \
+  --method POST \
+  --body '{"urls": ["url1", "url2", "url3"]}'
 ```
 
 ### Blocked Site Scraping
@@ -230,12 +208,10 @@ mcp__x402__fetch(
 - [ ] Try WebFetch first (free)
 - [ ] If blocked/empty, use Firecrawl with `waitFor` for JS-heavy sites
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/firecrawl/scrape",
-  method="POST",
-  body={"url": "https://blocked-site.com/article", "waitFor": 3000}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/firecrawl/scrape" \
+  --method POST \
+  --body '{"url": "https://blocked-site.com/article", "waitFor": 3000}'
 ```
 
 ## Cost Optimization
@@ -249,8 +225,8 @@ mcp__x402__fetch(
 
 Independent searches can run in parallel:
 
-```
+```bash
 # These don't depend on each other
-mcp__x402__fetch(url=".../exa/search", body={"query": "topic A"})
-mcp__x402__fetch(url=".../exa/search", body={"query": "topic B"})
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/search" -m POST -b '{"query": "topic A"}'
+npx @x402scan/mcp fetch "https://enrichx402.com/api/exa/search" -m POST -b '{"query": "topic B"}'
 ```

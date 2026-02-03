@@ -22,16 +22,16 @@ Your wallet is auto-created on first use and stored at `~/.x402scan-mcp/wallet.j
 
 ## Quick Reference
 
-| Task | Tool | Notes |
-|------|------|-------|
-| Check balance | `mcp__x402__get_wallet_info` | Shows address + USDC balance |
-| Redeem code | `mcp__x402__redeem_invite(code="...")` | One-time use per code |
+| Task | Command | Notes |
+|------|---------|-------|
+| Check balance | `npx @x402scan/mcp wallet info` | Shows address + USDC balance |
+| Redeem code | `npx @x402scan/mcp wallet redeem YOUR_CODE` | One-time use per code |
 | Deposit | Send USDC to wallet address | Base network only |
 
 ## Check Balance
 
-```
-mcp__x402__get_wallet_info
+```bash
+npx @x402scan/mcp wallet info
 ```
 
 Returns:
@@ -43,17 +43,17 @@ Always check balance before expensive operations.
 
 ## Redeem Invite Code
 
-```
-mcp__x402__redeem_invite(code="YOUR_CODE")
+```bash
+npx @x402scan/mcp wallet redeem "YOUR_CODE"
 ```
 
 - One-time use per code
 - Credits added instantly
-- Run `get_wallet_info` after to verify
+- Run `wallet info` after to verify
 
 ## Deposit USDC
 
-1. Get your wallet address: `mcp__x402__get_wallet_info`
+1. Get your wallet address: `npx @x402scan/mcp wallet info`
 2. Use it to add funds in the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
 
 **Important**: Only Base network USDC. Other networks or tokens will be lost.

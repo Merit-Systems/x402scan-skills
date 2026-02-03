@@ -16,7 +16,7 @@ description: |
   - "shopping", "buy", "price", "product search"
   - "compare prices", "where to buy", "deals on"
 
-  Use mcp__x402__fetch for Serper endpoints. Both endpoints are $0.04 per call.
+  Use the x402scan CLI for Serper endpoints. Both endpoints are $0.04 per call.
 ---
 
 # News & Shopping Search with Serper
@@ -25,7 +25,7 @@ Access Google News and Google Shopping through x402-protected endpoints.
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 ## Quick Reference
 
@@ -38,14 +38,10 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search Google News for articles:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/news",
-  method="POST",
-  body={
-    "q": "artificial intelligence regulation"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/news" \
+  --method POST \
+  --body '{"q": "artificial intelligence regulation"}'
 ```
 
 **Parameters:**
@@ -67,27 +63,18 @@ mcp__x402__fetch(
 
 Example - news from past week:
 
-```
-mcp__x402__fetch(
-  url=".../serper/news",
-  body={
-    "q": "AI startups funding",
-    "tbs": "qdr:w"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/news" \
+  --method POST \
+  --body '{"q": "AI startups funding", "tbs": "qdr:w"}'
 ```
 
 ### Country/Language Filtering
 
-```
-mcp__x402__fetch(
-  url=".../serper/news",
-  body={
-    "q": "technology news",
-    "gl": "uk",
-    "hl": "en"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/news" \
+  --method POST \
+  --body '{"q": "technology news", "gl": "uk", "hl": "en"}'
 ```
 
 **Returns:**
@@ -101,14 +88,10 @@ mcp__x402__fetch(
 
 Search Google Shopping for products:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/shopping",
-  method="POST",
-  body={
-    "q": "wireless noise cancelling headphones"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/shopping" \
+  --method POST \
+  --body '{"q": "wireless noise cancelling headphones"}'
 ```
 
 **Parameters:**
@@ -129,30 +112,24 @@ mcp__x402__fetch(
 
 Get local pricing and availability:
 
-```
-mcp__x402__fetch(
-  url=".../serper/shopping",
-  body={
-    "q": "MacBook Pro M3",
-    "gl": "us"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/shopping" \
+  --method POST \
+  --body '{"q": "MacBook Pro M3", "gl": "us"}'
 ```
 
 ## Workflows
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/news",
-  method="POST",
-  body={"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/news" \
+  --method POST \
+  --body '{"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}'
 ```
 
 ### Breaking News Research
@@ -161,12 +138,10 @@ mcp__x402__fetch(
 - [ ] Identify key sources and facts
 - [ ] Note developing aspects
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/news",
-  method="POST",
-  body={"q": "breaking news topic", "tbs": "qdr:h"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/news" \
+  --method POST \
+  --body '{"q": "breaking news topic", "tbs": "qdr:h"}'
 ```
 
 ### Product Research
@@ -176,12 +151,10 @@ mcp__x402__fetch(
 - [ ] Compare prices across merchants
 - [ ] Present top options with pros/cons
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/shopping",
-  method="POST",
-  body={"q": "ergonomic office chair under $500", "num": 20}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/shopping" \
+  --method POST \
+  --body '{"q": "ergonomic office chair under $500", "num": 20}'
 ```
 
 ### Price Comparison
@@ -190,12 +163,10 @@ mcp__x402__fetch(
 - [ ] Compare merchant prices
 - [ ] Note shipping and availability
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/serper/shopping",
-  method="POST",
-  body={"q": "exact product name model number"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/serper/shopping" \
+  --method POST \
+  --body '{"q": "exact product name model number"}'
 ```
 
 ## Response Data

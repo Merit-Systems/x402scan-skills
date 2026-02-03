@@ -18,7 +18,7 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use mcp__x402__fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+  Use the x402scan CLI for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
@@ -29,7 +29,7 @@ Access X/Twitter (via Grok) and Reddit through x402-protected endpoints.
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 ## Quick Reference
 
@@ -49,14 +49,10 @@ See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
 Search for X posts by keywords:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/grok/x-search",
-  method="POST",
-  body={
-    "query": "AI agents"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/grok/x-search" \
+  --method POST \
+  --body '{"query": "AI agents"}'
 ```
 
 **Parameters:**
@@ -72,14 +68,10 @@ mcp__x402__fetch(
 
 Find X users matching criteria:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/grok/user-search",
-  method="POST",
-  body={
-    "query": "AI researcher San Francisco"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/grok/user-search" \
+  --method POST \
+  --body '{"query": "AI researcher San Francisco"}'
 ```
 
 **Returns:**
@@ -93,14 +85,10 @@ mcp__x402__fetch(
 
 Fetch recent posts from a specific user:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/grok/user-posts",
-  method="POST",
-  body={
-    "username": "elonmusk"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/grok/user-posts" \
+  --method POST \
+  --body '{"username": "elonmusk"}'
 ```
 
 **Parameters:**
@@ -114,14 +102,10 @@ mcp__x402__fetch(
 
 Search Reddit for posts:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/search",
-  method="POST",
-  body={
-    "query": "best programming languages 2024"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/search" \
+  --method POST \
+  --body '{"query": "best programming languages 2024"}'
 ```
 
 **Parameters:**
@@ -138,31 +122,25 @@ mcp__x402__fetch(
 
 ### Search in Subreddit
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/search" \
+  --method POST \
+  --body '{
     "query": "typescript vs javascript",
     "subreddit": "programming",
     "sort": "top",
     "time": "year"
-  }
-)
+  }'
 ```
 
 ### Get Post Comments
 
 Get comments from a Reddit post:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/post-comments",
-  method="POST",
-  body={
-    "postUrl": "https://reddit.com/r/programming/comments/abc123/..."
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/post-comments" \
+  --method POST \
+  --body '{"postUrl": "https://reddit.com/r/programming/comments/abc123/..."}'
 ```
 
 **Returns:**
@@ -175,33 +153,29 @@ mcp__x402__fetch(
 
 ### Standard
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
-- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
-- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__x402__fetch`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
+- [ ] Use `npx @x402scan/mcp discover "https://enrichx402.com"` to list all endpoints
+- [ ] Use `npx @x402scan/mcp check "https://enrichx402.com/api/..."` to see expected parameters and pricing
+- [ ] Call endpoint with `npx @x402scan/mcp fetch`
 - [ ] Parse and present results
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Search X for brand mentions
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/grok/x-search",
-  method="POST",
-  body={"query": "YourBrand OR @YourBrand"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/grok/x-search" \
+  --method POST \
+  --body '{"query": "YourBrand OR @YourBrand"}'
 ```
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/search",
-  method="POST",
-  body={"query": "YourBrand", "sort": "new"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/search" \
+  --method POST \
+  --body '{"query": "YourBrand", "sort": "new"}'
 ```
 
 ### Competitor Research
@@ -210,12 +184,10 @@ mcp__x402__fetch(
 - [ ] Search X for competitor mentions
 - [ ] Analyze common complaints and praise
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/search",
-  method="POST",
-  body={"query": "competitor name review", "sort": "top", "time": "year"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/search" \
+  --method POST \
+  --body '{"query": "competitor name review", "sort": "top", "time": "year"}'
 ```
 
 ### Influencer Discovery
@@ -224,12 +196,10 @@ mcp__x402__fetch(
 - [ ] Search for matching users
 - [ ] Get recent posts for top candidates
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/grok/user-search",
-  method="POST",
-  body={"query": "tech blogger 100k followers"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/grok/user-search" \
+  --method POST \
+  --body '{"query": "tech blogger 100k followers"}'
 ```
 
 ### Community Sentiment
@@ -239,20 +209,16 @@ mcp__x402__fetch(
 - [ ] Get comments from top posts
 - [ ] Synthesize overall sentiment
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/search",
-  method="POST",
-  body={"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/search" \
+  --method POST \
+  --body '{"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}'
 ```
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/reddit/post-comments",
-  method="POST",
-  body={"postUrl": "https://reddit.com/..."}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/reddit/post-comments" \
+  --method POST \
+  --body '{"postUrl": "https://reddit.com/..."}'
 ```
 
 ## Response Data

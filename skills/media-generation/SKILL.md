@@ -15,7 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use mcp__x402__fetch for stablestudio.io endpoints.
+  ALWAYS use the x402scan CLI for stablestudio.io endpoints.
 ---
 
 # Media Generation with StableStudio
@@ -36,16 +36,14 @@ Generate images and videos via x402 payments at `https://stablestudio.io`.
 
 **Recommended: nano-banana-pro** (best quality/cost)
 
-```
-mcp__x402__fetch(
-  url="https://stablestudio.io/api/x402/nano-banana-pro/generate",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://stablestudio.io/api/x402/nano-banana-pro/generate" \
+  --method POST \
+  --body '{
     "prompt": "a cat wearing a space helmet, photorealistic",
     "aspectRatio": "16:9",
     "imageSize": "2K"
-  }
-)
+  }'
 ```
 
 **Options:**
@@ -56,16 +54,14 @@ mcp__x402__fetch(
 
 **Recommended: veo-3.1** (best quality/cost)
 
-```
-mcp__x402__fetch(
-  url="https://stablestudio.io/api/x402/veo-3.1/generate",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://stablestudio.io/api/x402/veo-3.1/generate" \
+  --method POST \
+  --body '{
     "prompt": "a timelapse of clouds moving over mountains",
     "durationSeconds": "6",
     "aspectRatio": "16:9"
-  }
-)
+  }'
 ```
 
 **Options:**
@@ -76,10 +72,9 @@ mcp__x402__fetch(
 
 Generation returns a `jobId`. Poll until complete:
 
-```
-mcp__x402__fetch_with_auth(
-  url="https://stablestudio.io/api/x402/jobs/{jobId}"
-)
+```bash
+npx @x402scan/mcp fetch "https://stablestudio.io/api/x402/jobs/{jobId}" \
+  --headers '{"Authorization": "Bearer <your-siwx-token>"}'
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
@@ -88,15 +83,13 @@ Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`
 
 Requires uploading the source image first. See [rules/uploads.md](rules/uploads.md).
 
-```
-mcp__x402__fetch(
-  url="https://stablestudio.io/api/x402/nano-banana-pro/edit",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://stablestudio.io/api/x402/nano-banana-pro/edit" \
+  --method POST \
+  --body '{
     "prompt": "change the background to a beach sunset",
     "images": ["https://...blob-url..."]
-  }
-)
+  }'
 ```
 
 ## Model Comparison

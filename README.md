@@ -1,22 +1,31 @@
 # x402scan Skills
 
-Skills for accessing x402-protected APIs using the x402scan MCP.
+Skills for accessing x402-protected APIs using the x402scan CLI.
 
 Covers enrichx402.com (data enrichment) and stablestudio.io (media generation).
 
 ## Prerequisites
 
-Install the x402scan MCP:
+The x402scan CLI works out of the box with `npx` - no installation required:
 
 ```bash
-npx @x402scan/mcp install --client claude-code
+# Check it works
+npx @x402scan/mcp wallet info
 ```
 
-This enables the `mcp__x402__*` tools used by these skills.
+Your wallet is auto-created at `~/.x402scan-mcp/wallet.json` on first use.
+
+### Optional: Install as MCP Server
+
+If you prefer MCP tool integration (for Claude Desktop, Cursor, etc.):
+
+```bash
+npx @x402scan/mcp install --client cursor
+```
 
 ## Installation
 
-Copy skills to your Claude Code skills directory:
+Copy skills to your skills directory:
 
 ```bash
 cp -r skills/* ~/.claude/skills/
@@ -44,28 +53,43 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 ## Quick Start
 
 1. **Check your balance:**
-   ```
-   mcp__x402__get_wallet_info
+   ```bash
+   npx @x402scan/mcp wallet info
    ```
 
 2. **Discover available endpoints:**
-   ```
-   mcp__x402__discover_api_endpoints(url="https://enrichx402.com")
+   ```bash
+   npx @x402scan/mcp discover "https://enrichx402.com"
    ```
 
 3. **Check endpoint pricing before calling:**
-   ```
-   mcp__x402__check_endpoint_schema(url="https://enrichx402.com/api/apollo/people-enrich")
+   ```bash
+   npx @x402scan/mcp check "https://enrichx402.com/api/apollo/people-enrich"
    ```
 
 4. **Make API calls:**
+   ```bash
+   npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich" \
+     --method POST \
+     --body '{"email": "user@company.com"}'
    ```
-   mcp__x402__fetch(
-     url="https://enrichx402.com/api/apollo/people-enrich",
-     method="POST",
-     body={"email": "user@company.com"}
-   )
-   ```
+
+## CLI Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `wallet info` | Get wallet address, balance, deposit link |
+| `wallet redeem <code>` | Redeem an invite code |
+| `discover <url>` | Find x402 endpoints on an origin |
+| `check <url>` | Check endpoint pricing/schema (no payment) |
+| `fetch <url>` | HTTP fetch with automatic x402 payment |
+| `schema <cmd>` | Get JSON schema for a command |
+
+For full command documentation:
+```bash
+npx @x402scan/mcp --help
+npx @x402scan/mcp schema fetch
+```
 
 ## IMPORTANT: Do Not Guess Endpoints
 
@@ -79,7 +103,7 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 | `/api/twitter/search` | `/api/grok/x-search` |
 
 If you don't know the exact endpoint path:
-1. **Use `discover_api_endpoints`** to list all available endpoints
+1. **Use `discover`** to list all available endpoints
 2. **Consult the skill documentation** (SKILL.md files have correct paths)
 3. **Check ENDPOINTS.md** for the complete reference
 
@@ -89,7 +113,7 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 
 If your balance is low:
 
-1. Redeem an invite code: `mcp__x402__redeem_invite(code="YOUR_CODE")`
+1. Redeem an invite code: `npx @x402scan/mcp wallet redeem YOUR_CODE`
 2. Or deposit USDC on Base to your wallet address
 
 ## All Endpoints Reference

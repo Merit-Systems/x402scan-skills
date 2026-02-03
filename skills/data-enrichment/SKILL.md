@@ -17,7 +17,7 @@ description: |
   - "find contact for", "get LinkedIn for", "get email for"
   - "employee at", "works at", "company details"
 
-  ALWAYS use mcp__x402__fetch for enrichx402.com endpoints - never curl or WebFetch.
+  ALWAYS use the x402scan CLI for enrichx402.com endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`/api/apollo/...` or `/api/clado/...`).
@@ -25,11 +25,11 @@ description: |
 
 # Data Enrichment with x402 APIs
 
-Use the x402scan MCP tools to access enrichment APIs at enrichx402.com.
+Use the x402scan CLI to access enrichment APIs at enrichx402.com.
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 ## Quick Reference
 
@@ -48,37 +48,33 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
-- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
-- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__x402__fetch`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
+- [ ] Use `npx @x402scan/mcp discover "https://enrichx402.com"` to list all endpoints
+- [ ] Use `npx @x402scan/mcp check "https://enrichx402.com/api/..."` to see expected parameters and pricing
+- [ ] Call endpoint with `npx @x402scan/mcp fetch`
 - [ ] Parse and present results
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/people-enrich",
-  method="POST",
-  body={"email": "user@company.com"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich" \
+  --method POST \
+  --body '{"email": "user@company.com"}'
 ```
 
 ## Person Enrichment
 
 Enrich a person using any available identifier:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/people-enrich",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich" \
+  --method POST \
+  --body '{
     "email": "john@company.com",
     "first_name": "John",
     "last_name": "Doe",
     "organization_name": "Acme Inc",
     "domain": "company.com",
     "linkedin_url": "https://linkedin.com/in/johndoe"
-  }
-)
+  }'
 ```
 
 **Input options** (provide any combination):
@@ -93,14 +89,10 @@ mcp__x402__fetch(
 
 Enrich a company by domain:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/org-enrich",
-  method="POST",
-  body={
-    "domain": "stripe.com"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/org-enrich" \
+  --method POST \
+  --body '{"domain": "stripe.com"}'
 ```
 
 **Returns**: Company name, industry, employee count, revenue estimates, funding info, technologies used, social links.
@@ -109,17 +101,15 @@ mcp__x402__fetch(
 
 Search for people matching criteria:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/people-search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-search" \
+  --method POST \
+  --body '{
     "q_keywords": "software engineer",
     "person_titles": ["CTO", "VP Engineering"],
     "organization_domains": ["google.com", "meta.com"],
     "person_locations": ["San Francisco, CA"]
-  }
-)
+  }'
 ```
 
 **Search filters**:
@@ -133,30 +123,24 @@ mcp__x402__fetch(
 
 Search for companies matching criteria:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/org-search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/org-search" \
+  --method POST \
+  --body '{
     "q_keywords": "fintech",
     "organization_locations": ["New York, NY"],
     "organization_num_employees_ranges": ["51-200", "201-500"]
-  }
-)
+  }'
 ```
 
 ## LinkedIn Scraping (Clado)
 
 Get full LinkedIn profile data:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/clado/linkedin-scrape",
-  method="POST",
-  body={
-    "linkedin_url": "https://linkedin.com/in/johndoe"
-  }
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/clado/linkedin-scrape" \
+  --method POST \
+  --body '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
 ```
 
 **Returns**: Experience history, education, skills, certifications, recommendations, connection count.
@@ -165,15 +149,13 @@ mcp__x402__fetch(
 
 Find missing email or phone:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/clado/contacts-enrich",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/clado/contacts-enrich" \
+  --method POST \
+  --body '{
     "linkedin_url": "https://linkedin.com/in/johndoe",
     "email": "john@example.com"
-  }
-)
+  }'
 ```
 
 **Returns**: Validated email addresses and phone numbers with confidence scores.
@@ -182,33 +164,29 @@ mcp__x402__fetch(
 
 Process up to 10 records in one request:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/people-enrich/bulk",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich/bulk" \
+  --method POST \
+  --body '{
     "people": [
       { "email": "person1@company.com" },
       { "email": "person2@company.com" },
       { "linkedin_url": "https://linkedin.com/in/person3" }
     ]
-  }
-)
+  }'
 ```
 
 For companies:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/apollo/org-enrich/bulk",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/org-enrich/bulk" \
+  --method POST \
+  --body '{
     "organizations": [
       { "domain": "company1.com" },
       { "domain": "company2.com" }
     ]
-  }
-)
+  }'
 ```
 
 ## Cost Optimization
@@ -217,11 +195,11 @@ mcp__x402__fetch(
 
 Reduce costs by excluding unneeded fields:
 
-```
-body={
+```bash
+--body '{
   "email": "john@company.com",
   "excludeFields": ["employment_history", "photos", "phone_numbers"]
-}
+}'
 ```
 
 Common fields to exclude:
@@ -249,18 +227,17 @@ Use search endpoints ($0.02) to find the right records before enriching ($0.0495
 
 When enriching multiple independent records, make calls in parallel:
 
-```
+```bash
 # These can run simultaneously since they're independent
-mcp__x402__fetch(url=".../people-enrich", body={"email": "a@co.com"})
-mcp__x402__fetch(url=".../people-enrich", body={"email": "b@co.com"})
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich" -m POST -b '{"email": "a@co.com"}'
+npx @x402scan/mcp fetch "https://enrichx402.com/api/apollo/people-enrich" -m POST -b '{"email": "b@co.com"}'
 ```
 
 Or use bulk endpoints for the best efficiency.
 
-
 ## Handling missing data
 
-If any query fails to return the data you are looking for, revist the list of available APIs.
+If any query fails to return the data you are looking for, revisit the list of available APIs.
 
 Oftentimes, if apollo is missing data, clado will have it, and vice versa.
 

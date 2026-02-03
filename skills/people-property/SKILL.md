@@ -17,7 +17,7 @@ description: |
   IMPORTANT: These endpoints contain personal information. Use responsibly and only for legitimate purposes.
   See rules/privacy.md for guidance.
 
-  Use mcp__x402__fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
+  Use the x402scan CLI for Whitepages endpoints. Both endpoints are $0.44 per call.
 ---
 
 # People & Property Search with Whitepages
@@ -26,7 +26,7 @@ Access people and property search through x402-protected endpoints.
 
 ## Setup
 
-See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+See [rules/getting-started.md](rules/getting-started.md) for wallet setup.
 
 **Important:** This skill provides access to personal information. Review [rules/privacy.md](rules/privacy.md) before use.
 
@@ -41,17 +41,15 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search for a person by name and location:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/whitepages/person-search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/person-search" \
+  --method POST \
+  --body '{
     "firstName": "John",
     "lastName": "Smith",
     "city": "Seattle",
     "state": "WA"
-  }
-)
+  }'
 ```
 
 **Parameters:**
@@ -72,34 +70,31 @@ mcp__x402__fetch(
 
 Include more details for better matches:
 
-```
-mcp__x402__fetch(
-  url=".../whitepages/person-search",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/person-search" \
+  --method POST \
+  --body '{
     "firstName": "John",
     "lastName": "Smith",
     "address": "123 Main St",
     "city": "Seattle",
     "state": "WA",
     "zip": "98101"
-  }
-)
+  }'
 ```
 
 ## Property Search
 
 Search for property information:
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/whitepages/property-search",
-  method="POST",
-  body={
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/property-search" \
+  --method POST \
+  --body '{
     "address": "123 Main Street",
     "city": "Seattle",
     "state": "WA"
-  }
-)
+  }'
 ```
 
 **Parameters:**
@@ -137,30 +132,26 @@ mcp__x402__fetch(
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/whitepages/person-search",
-  method="POST",
-  body={"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/person-search" \
+  --method POST \
+  --body '{"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}'
 ```
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `npx @x402scan/mcp wallet info`
 - [ ] Search by address
 - [ ] Review owner and property details
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/whitepages/property-search",
-  method="POST",
-  body={"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/property-search" \
+  --method POST \
+  --body '{"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}'
 ```
 
 ### Reconnect with Someone
@@ -169,12 +160,10 @@ mcp__x402__fetch(
 - [ ] Provide as much detail as possible for accuracy
 - [ ] Review results for correct match
 
-```
-mcp__x402__fetch(
-  url="https://enrichx402.com/api/whitepages/person-search",
-  method="POST",
-  body={"firstName": "Michael", "lastName": "Johnson", "state": "CA"}
-)
+```bash
+npx @x402scan/mcp fetch "https://enrichx402.com/api/whitepages/person-search" \
+  --method POST \
+  --body '{"firstName": "Michael", "lastName": "Johnson", "state": "CA"}'
 ```
 
 ## Cost Considerations
