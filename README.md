@@ -4,6 +4,8 @@ Skills for accessing x402-protected APIs using the x402scan MCP.
 
 Covers enrichx402.com (data enrichment) and stablestudio.io (media generation).
 
+> **CRITICAL — Do not guess endpoint paths.** All enrichx402.com endpoints use the format `https://enrichx402.com/api/{provider}/{action}`. They are NOT the same as each provider's native API paths (e.g., Apollo's `/organizations/search` becomes `/api/apollo/org-search`). Before your first call, run `x402.discover_api_endpoints(url="https://enrichx402.com")` or use the exact URLs from SKILL.md Quick Reference tables.
+
 ## Portable MCP Skills
 
 These skills use a **portable format** that works across different MCP clients:
@@ -61,7 +63,7 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
    x402.get_wallet_info
    ```
 
-2. **Discover available endpoints:**
+2. **Discover endpoints (required before first fetch):**
 
    ```mcp
    x402.discover_api_endpoints(url="https://enrichx402.com")
@@ -82,24 +84,6 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
      body={"email": "user@company.com"}
    )
    ```
-
-## IMPORTANT: Do Not Guess Endpoints
-
-**Never guess or invent endpoint paths.** All endpoints have specific paths that include a provider prefix:
-
-| Wrong (guessed) | Correct |
-|-----------------|---------|
-| `/api/people/search` | `/api/apollo/people-search` |
-| `/api/people-enrich` | `/api/apollo/people-enrich` |
-| `/api/grok/search` | `/api/grok/x-search` |
-| `/api/twitter/search` | `/api/grok/x-search` |
-
-If you don't know the exact endpoint path:
-1. **Use `x402.discover_api_endpoints`** to list all available endpoints
-2. **Consult the skill documentation** (SKILL.md files have correct paths)
-3. **Check ENDPOINTS.md** for the complete reference
-
-Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API calls.
 
 ## Funding Your Wallet
 

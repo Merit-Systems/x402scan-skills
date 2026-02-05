@@ -18,11 +18,19 @@ description: |
   See rules/privacy.md for guidance.
 
   Both endpoints are $0.44 per call.
+
+  IMPORTANT: Never guess endpoint paths. All paths follow the pattern https://enrichx402.com/api/{provider}/{action}. Use exact URLs from the Quick Reference table below or call x402.discover_api_endpoints first.
 mcp:
   - x402
 ---
 
 # People & Property Search with Whitepages
+
+> **STOP — Read before making any API call.** enrichx402.com endpoints are **not** the same as each provider's native API. All paths use the format `https://enrichx402.com/api/{provider}/{action}`. You MUST either:
+> 1. Copy exact URLs from the Quick Reference table below, OR
+> 2. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` to get the correct paths
+>
+> **Guessing paths will fail** with 405 errors (wrong path) or 404 errors (missing `/api/` prefix).
 
 Access people and property search through x402-protected endpoints.
 
@@ -36,8 +44,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| Person search | `/api/whitepages/person-search` | $0.44 | Find people by name/location |
-| Property search | `/api/whitepages/property-search` | $0.44 | Property and owner info |
+| Person search | `https://enrichx402.com/api/whitepages/person-search` | $0.44 | Find people by name/location |
+| Property search | `https://enrichx402.com/api/whitepages/property-search` | $0.44 | Property and owner info |
 
 ## Person Search
 
@@ -138,10 +146,11 @@ x402.fetch(
 
 ### Verify Contact Information
 
-- [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `x402.get_wallet_info`
-- [ ] Search with available details
-- [ ] Verify results match expected person
+1. Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
+2. (Optional) Check balance: `x402.get_wallet_info`
+3. **Discover endpoints (required before first fetch):** `x402.discover_api_endpoints(url="https://enrichx402.com")`
+4. Search with available details using exact URL from discovery or Quick Reference table above
+5. Verify results match expected person
 
 ```mcp
 x402.fetch(

@@ -19,11 +19,19 @@ description: |
   - "what is", "explain", "answer this"
 
   Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+
+  IMPORTANT: Never guess endpoint paths. All paths follow the pattern https://enrichx402.com/api/{provider}/{action}. Use exact URLs from the Quick Reference table below or call x402.discover_api_endpoints first.
 mcp:
   - x402
 ---
 
 # Web Research with x402 APIs
+
+> **STOP — Read before making any API call.** enrichx402.com endpoints are **not** the same as each provider's native API. All paths use the format `https://enrichx402.com/api/{provider}/{action}`. You MUST either:
+> 1. Copy exact URLs from the Quick Reference table below, OR
+> 2. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` to get the correct paths
+>
+> **Guessing paths will fail** with 405 errors (wrong path) or 404 errors (missing `/api/` prefix).
 
 Access Exa (neural search) and Firecrawl (web scraping) through x402-protected endpoints.
 
@@ -35,12 +43,12 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
-| Neural search | `/api/exa/search` | $0.01 | Semantic web search |
-| Find similar | `/api/exa/find-similar` | $0.01 | Pages similar to a URL |
-| Extract text | `/api/exa/contents` | $0.002 | Clean text from URLs |
-| Direct answers | `/api/exa/answer` | $0.01 | Factual Q&A |
-| Scrape page | `/api/firecrawl/scrape` | $0.0126 | Single page to markdown |
-| Web search | `/api/firecrawl/search` | $0.0252 | Search with scraping |
+| Neural search | `https://enrichx402.com/api/exa/search` | $0.01 | Semantic web search |
+| Find similar | `https://enrichx402.com/api/exa/find-similar` | $0.01 | Pages similar to a URL |
+| Extract text | `https://enrichx402.com/api/exa/contents` | $0.002 | Clean text from URLs |
+| Direct answers | `https://enrichx402.com/api/exa/answer` | $0.01 | Factual Q&A |
+| Scrape page | `https://enrichx402.com/api/firecrawl/scrape` | $0.0126 | Single page to markdown |
+| Web search | `https://enrichx402.com/api/firecrawl/search` | $0.0252 | Search with scraping |
 
 ## When to Use What
 
@@ -197,11 +205,12 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `x402.get_wallet_info`
-- [ ] Search broadly with Exa
-- [ ] Find related sources with find-similar
-- [ ] Extract content from top sources
-- [ ] Synthesize findings
+1. (Optional) Check balance: `x402.get_wallet_info`
+2. **Discover endpoints (required before first fetch):** `x402.discover_api_endpoints(url="https://enrichx402.com")`
+3. Search broadly with Exa
+4. Find related sources with find-similar
+5. Extract content from top sources
+6. Synthesize findings
 
 ```mcp
 x402.fetch(

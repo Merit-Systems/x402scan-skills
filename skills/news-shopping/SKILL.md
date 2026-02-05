@@ -17,11 +17,19 @@ description: |
   - "compare prices", "where to buy", "deals on"
 
   Both endpoints are $0.04 per call.
+
+  IMPORTANT: Never guess endpoint paths. All paths follow the pattern https://enrichx402.com/api/{provider}/{action}. Use exact URLs from the Quick Reference table below or call x402.discover_api_endpoints first.
 mcp:
   - x402
 ---
 
 # News & Shopping Search with Serper
+
+> **STOP — Read before making any API call.** enrichx402.com endpoints are **not** the same as each provider's native API. All paths use the format `https://enrichx402.com/api/{provider}/{action}`. You MUST either:
+> 1. Copy exact URLs from the Quick Reference table below, OR
+> 2. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` to get the correct paths
+>
+> **Guessing paths will fail** with 405 errors (wrong path) or 404 errors (missing `/api/` prefix).
 
 Access Google News and Google Shopping through x402-protected endpoints.
 
@@ -33,8 +41,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| News search | `/api/serper/news` | $0.04 | Google News search |
-| Shopping search | `/api/serper/shopping` | $0.04 | Google Shopping search |
+| News search | `https://enrichx402.com/api/serper/news` | $0.04 | Google News search |
+| Shopping search | `https://enrichx402.com/api/serper/shopping` | $0.04 | Google Shopping search |
 
 ## News Search
 
@@ -145,9 +153,10 @@ x402.fetch(
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `x402.get_wallet_info`
-- [ ] Search with appropriate time filter
-- [ ] Review and summarize top stories
+1. (Optional) Check balance: `x402.get_wallet_info`
+2. **Discover endpoints (required before first fetch):** `x402.discover_api_endpoints(url="https://enrichx402.com")`
+3. Search with appropriate time filter
+4. Review and summarize top stories
 
 ```mcp
 x402.fetch(

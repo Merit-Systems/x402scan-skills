@@ -17,11 +17,19 @@ description: |
   - "places in", "what's near", "directions to"
 
   Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+
+  IMPORTANT: Never guess endpoint paths. All paths follow the pattern https://enrichx402.com/api/{provider}/{action}. Use exact URLs from the Quick Reference table below or call x402.discover_api_endpoints first.
 mcp:
   - x402
 ---
 
 # Local Search with Google Maps
+
+> **STOP — Read before making any API call.** enrichx402.com endpoints are **not** the same as each provider's native API. All paths use the format `https://enrichx402.com/api/{provider}/{action}`. You MUST either:
+> 1. Copy exact URLs from the Quick Reference table below, OR
+> 2. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` to get the correct paths
+>
+> **Guessing paths will fail** with 405 errors (wrong path) or 404 errors (missing `/api/` prefix).
 
 Access Google Maps Places API through x402-protected endpoints.
 
@@ -33,12 +41,12 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Data Included |
 |------|----------|-------|---------------|
-| Text search (basic) | `/api/google-maps/text-search/partial` | $0.02 | Name, address, rating |
-| Text search (full) | `/api/google-maps/text-search/full` | $0.08 | + reviews, atmosphere |
-| Nearby search (basic) | `/api/google-maps/nearby-search/partial` | $0.02 | Name, address, rating |
-| Nearby search (full) | `/api/google-maps/nearby-search/full` | $0.08 | + reviews, atmosphere |
-| Place details (basic) | `/api/google-maps/place-details/partial` | $0.02 | Core info |
-| Place details (full) | `/api/google-maps/place-details/full` | $0.05 | All fields |
+| Text search (basic) | `https://enrichx402.com/api/google-maps/text-search/partial` | $0.02 | Name, address, rating |
+| Text search (full) | `https://enrichx402.com/api/google-maps/text-search/full` | $0.08 | + reviews, atmosphere |
+| Nearby search (basic) | `https://enrichx402.com/api/google-maps/nearby-search/partial` | $0.02 | Name, address, rating |
+| Nearby search (full) | `https://enrichx402.com/api/google-maps/nearby-search/full` | $0.08 | + reviews, atmosphere |
+| Place details (basic) | `https://enrichx402.com/api/google-maps/place-details/partial` | $0.02 | Core info |
+| Place details (full) | `https://enrichx402.com/api/google-maps/place-details/full` | $0.05 | All fields |
 
 See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guidance.
 
@@ -136,10 +144,11 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `x402.get_wallet_info`
-- [ ] Text search (partial) to find options
-- [ ] Review results and select top picks
-- [ ] Get full details for selected places
+1. (Optional) Check balance: `x402.get_wallet_info`
+2. **Discover endpoints (required before first fetch):** `x402.discover_api_endpoints(url="https://enrichx402.com")`
+3. Text search (partial) to find options
+4. Review results and select top picks
+5. Get full details for selected places
 
 ```mcp
 x402.fetch(

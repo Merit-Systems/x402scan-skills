@@ -23,3 +23,5 @@
 | "MCP tool not found" | Run install command, restart Claude Code |
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
+| "405 Method Not Allowed" | Wrong endpoint path. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` and use exact paths from results or Quick Reference table in SKILL.md |
+| "404 Not Found" | Missing `/api/` prefix. All paths must start with `https://enrichx402.com/api/` |

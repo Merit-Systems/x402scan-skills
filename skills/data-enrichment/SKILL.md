@@ -20,12 +20,18 @@ description: |
   ALWAYS use x402.fetch for enrichx402.com endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`/api/apollo/...` or `/api/clado/...`).
+  IMPORTANT: Never guess endpoint paths. All paths follow the pattern https://enrichx402.com/api/{provider}/{action}. Use exact URLs from the Quick Reference table below or call x402.discover_api_endpoints first.
 mcp:
   - x402
 ---
 
 # Data Enrichment with x402 APIs
+
+> **STOP — Read before making any API call.** enrichx402.com endpoints are **not** the same as each provider's native API. All paths use the format `https://enrichx402.com/api/{provider}/{action}`. You MUST either:
+> 1. Copy exact URLs from the Quick Reference table below, OR
+> 2. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` to get the correct paths
+>
+> **Guessing paths will fail** with 405 errors (wrong path) or 404 errors (missing `/api/` prefix).
 
 Use the x402scan MCP tools to access enrichment APIs at enrichx402.com.
 
@@ -37,24 +43,24 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
-| Enrich person | `/api/apollo/people-enrich` | $0.0495 | Email/LinkedIn -> full profile |
-| Enrich company | `/api/apollo/org-enrich` | $0.0495 | Domain -> company data |
-| Search people | `/api/apollo/people-search` | $0.02 | Find people by criteria |
-| Search companies | `/api/apollo/org-search` | $0.02 | Find companies by criteria |
-| LinkedIn scrape | `/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
-| Contact recovery | `/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
-| Bulk people | `/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
-| Bulk companies | `/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
+| Enrich person | `https://enrichx402.com/api/apollo/people-enrich` | $0.0495 | Email/LinkedIn -> full profile |
+| Enrich company | `https://enrichx402.com/api/apollo/org-enrich` | $0.0495 | Domain -> company data |
+| Search people | `https://enrichx402.com/api/apollo/people-search` | $0.02 | Find people by criteria |
+| Search companies | `https://enrichx402.com/api/apollo/org-search` | $0.02 | Find companies by criteria |
+| LinkedIn scrape | `https://enrichx402.com/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
+| Contact recovery | `https://enrichx402.com/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
+| Bulk people | `https://enrichx402.com/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
+| Bulk companies | `https://enrichx402.com/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
 
 ## Workflows
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `x402.get_wallet_info`
-- [ ] Use `x402.discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
-- [ ] Use `x402.check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `x402.fetch`
-- [ ] Parse and present results
+1. (Optional) Check balance: `x402.get_wallet_info`
+2. **Discover endpoints (required before first fetch):** `x402.discover_api_endpoints(url="https://enrichx402.com")`
+3. Check endpoint schema: `x402.check_endpoint_schema(url="...")` to verify parameters and pricing
+4. Call endpoint with `x402.fetch` using exact URL from discovery or Quick Reference table above
+5. Parse and present results
 
 ```mcp
 x402.fetch(

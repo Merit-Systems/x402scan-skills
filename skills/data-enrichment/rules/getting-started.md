@@ -24,5 +24,6 @@
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
 | "No match found" | Try different identifiers (email vs LinkedIn) or use search first |
-| "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
+| "405 Method Not Allowed" | Wrong endpoint path. Run `x402.discover_api_endpoints(url="https://enrichx402.com")` and use exact paths from results or Quick Reference table in SKILL.md |
+| "404 Not Found" | Missing `/api/` prefix. All paths must start with `https://enrichx402.com/api/` |
 | "400 Bad Request" | Verify parameter names match exactly from examples in SKILL.md |
