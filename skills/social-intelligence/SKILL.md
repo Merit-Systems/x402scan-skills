@@ -18,7 +18,7 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  All endpoints are $0.02 per call.
+  Use x402.fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 mcp:
