@@ -16,7 +16,9 @@ description: |
   - "shopping", "buy", "price", "product search"
   - "compare prices", "where to buy", "deals on"
 
-  Use mcp__x402__fetch for Serper endpoints. Both endpoints are $0.04 per call.
+  Both endpoints are $0.04 per call.
+mcp:
+  - x402
 ---
 
 # News & Shopping Search with Serper
@@ -38,8 +40,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search Google News for articles:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/news",
   method="POST",
   body={
@@ -67,8 +69,8 @@ mcp__x402__fetch(
 
 Example - news from past week:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url=".../serper/news",
   body={
     "q": "AI startups funding",
@@ -79,8 +81,8 @@ mcp__x402__fetch(
 
 ### Country/Language Filtering
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url=".../serper/news",
   body={
     "q": "technology news",
@@ -101,8 +103,8 @@ mcp__x402__fetch(
 
 Search Google Shopping for products:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/shopping",
   method="POST",
   body={
@@ -129,8 +131,8 @@ mcp__x402__fetch(
 
 Get local pricing and availability:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url=".../serper/shopping",
   body={
     "q": "MacBook Pro M3",
@@ -143,12 +145,12 @@ mcp__x402__fetch(
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/news",
   method="POST",
   body={"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}
@@ -161,8 +163,8 @@ mcp__x402__fetch(
 - [ ] Identify key sources and facts
 - [ ] Note developing aspects
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/news",
   method="POST",
   body={"q": "breaking news topic", "tbs": "qdr:h"}
@@ -176,8 +178,8 @@ mcp__x402__fetch(
 - [ ] Compare prices across merchants
 - [ ] Present top options with pros/cons
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/shopping",
   method="POST",
   body={"q": "ergonomic office chair under $500", "num": 20}
@@ -190,8 +192,8 @@ mcp__x402__fetch(
 - [ ] Compare merchant prices
 - [ ] Note shipping and availability
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/serper/shopping",
   method="POST",
   body={"q": "exact product name model number"}

@@ -18,9 +18,11 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use mcp__x402__fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+  All endpoints are $0.02 per call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+mcp:
+  - x402
 ---
 
 # Social Intelligence with x402 APIs
@@ -49,8 +51,8 @@ See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
 Search for X posts by keywords:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/grok/x-search",
   method="POST",
   body={
@@ -72,8 +74,8 @@ mcp__x402__fetch(
 
 Find X users matching criteria:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/grok/user-search",
   method="POST",
   body={
@@ -93,8 +95,8 @@ mcp__x402__fetch(
 
 Fetch recent posts from a specific user:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/grok/user-posts",
   method="POST",
   body={
@@ -114,8 +116,8 @@ mcp__x402__fetch(
 
 Search Reddit for posts:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/search",
   method="POST",
   body={
@@ -138,8 +140,8 @@ mcp__x402__fetch(
 
 ### Search in Subreddit
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/search",
   method="POST",
   body={
@@ -155,8 +157,8 @@ mcp__x402__fetch(
 
 Get comments from a Reddit post:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/post-comments",
   method="POST",
   body={
@@ -175,29 +177,29 @@ mcp__x402__fetch(
 
 ### Standard
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
-- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
-- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__x402__fetch`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
+- [ ] Use `x402.discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
+- [ ] Use `x402.check_endpoint_schema(url="...")` to see expected parameters and pricing
+- [ ] Call endpoint with `x402.fetch`
 - [ ] Parse and present results
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Search X for brand mentions
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/grok/x-search",
   method="POST",
   body={"query": "YourBrand OR @YourBrand"}
 )
 ```
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/search",
   method="POST",
   body={"query": "YourBrand", "sort": "new"}
@@ -210,8 +212,8 @@ mcp__x402__fetch(
 - [ ] Search X for competitor mentions
 - [ ] Analyze common complaints and praise
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/search",
   method="POST",
   body={"query": "competitor name review", "sort": "top", "time": "year"}
@@ -224,8 +226,8 @@ mcp__x402__fetch(
 - [ ] Search for matching users
 - [ ] Get recent posts for top candidates
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/grok/user-search",
   method="POST",
   body={"query": "tech blogger 100k followers"}
@@ -239,16 +241,16 @@ mcp__x402__fetch(
 - [ ] Get comments from top posts
 - [ ] Synthesize overall sentiment
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/search",
   method="POST",
   body={"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}
 )
 ```
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/reddit/post-comments",
   method="POST",
   body={"postUrl": "https://reddit.com/..."}

@@ -18,7 +18,9 @@ description: |
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
 
-  Use mcp__x402__fetch for these endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+  Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+mcp:
+  - x402
 ---
 
 # Web Research with x402 APIs
@@ -58,8 +60,8 @@ See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 
 Semantic search that understands meaning, not just keywords:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/search",
   method="POST",
   body={
@@ -84,8 +86,8 @@ mcp__x402__fetch(
 
 Find pages semantically similar to a reference URL:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/find-similar",
   method="POST",
   body={
@@ -104,8 +106,8 @@ Great for:
 
 Get clean, structured text from URLs:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/contents",
   method="POST",
   body={
@@ -128,8 +130,8 @@ Cheapest option ($0.002) when you already have URLs and just need the content.
 
 Get factual answers to questions:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/answer",
   method="POST",
   body={
@@ -147,8 +149,8 @@ Returns a direct answer with source citations. Best for:
 
 Scrape a single page to clean markdown:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/firecrawl/scrape",
   method="POST",
   body={
@@ -173,8 +175,8 @@ mcp__x402__fetch(
 
 Web search with automatic scraping of results:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/firecrawl/search",
   method="POST",
   body={
@@ -195,30 +197,30 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
 - [ ] Synthesize findings
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/search",
   method="POST",
   body={"query": "AI agents in healthcare 2024", "numResults": 15}
 )
 ```
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/find-similar",
   method="POST",
   body={"url": "https://best-article-found.com"}
 )
 ```
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/exa/contents",
   method="POST",
   body={"urls": ["url1", "url2", "url3"]}
@@ -230,8 +232,8 @@ mcp__x402__fetch(
 - [ ] Try WebFetch first (free)
 - [ ] If blocked/empty, use Firecrawl with `waitFor` for JS-heavy sites
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/firecrawl/scrape",
   method="POST",
   body={"url": "https://blocked-site.com/article", "waitFor": 3000}
@@ -249,8 +251,8 @@ mcp__x402__fetch(
 
 Independent searches can run in parallel:
 
-```
+```mcp
 # These don't depend on each other
-mcp__x402__fetch(url=".../exa/search", body={"query": "topic A"})
-mcp__x402__fetch(url=".../exa/search", body={"query": "topic B"})
+x402.fetch(url=".../exa/search", body={"query": "topic A"})
+x402.fetch(url=".../exa/search", body={"query": "topic B"})
 ```

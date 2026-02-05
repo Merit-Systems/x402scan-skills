@@ -17,7 +17,9 @@ description: |
   IMPORTANT: These endpoints contain personal information. Use responsibly and only for legitimate purposes.
   See rules/privacy.md for guidance.
 
-  Use mcp__x402__fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
+  Both endpoints are $0.44 per call.
+mcp:
+  - x402
 ---
 
 # People & Property Search with Whitepages
@@ -41,8 +43,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search for a person by name and location:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/whitepages/person-search",
   method="POST",
   body={
@@ -72,8 +74,8 @@ mcp__x402__fetch(
 
 Include more details for better matches:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url=".../whitepages/person-search",
   body={
     "firstName": "John",
@@ -90,8 +92,8 @@ mcp__x402__fetch(
 
 Search for property information:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/whitepages/property-search",
   method="POST",
   body={
@@ -137,12 +139,12 @@ mcp__x402__fetch(
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/whitepages/person-search",
   method="POST",
   body={"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}
@@ -151,12 +153,12 @@ mcp__x402__fetch(
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Search by address
 - [ ] Review owner and property details
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/whitepages/property-search",
   method="POST",
   body={"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}
@@ -169,8 +171,8 @@ mcp__x402__fetch(
 - [ ] Provide as much detail as possible for accuracy
 - [ ] Review results for correct match
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/whitepages/person-search",
   method="POST",
   body={"firstName": "Michael", "lastName": "Johnson", "state": "CA"}

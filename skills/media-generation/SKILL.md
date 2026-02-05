@@ -14,8 +14,8 @@ description: |
   - "generate video", "create video", "make a video"
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
-
-  ALWAYS use mcp__x402__fetch for stablestudio.io endpoints.
+mcp:
+  - x402
 ---
 
 # Media Generation with StableStudio
@@ -36,8 +36,8 @@ Generate images and videos via x402 payments at `https://stablestudio.io`.
 
 **Recommended: nano-banana-pro** (best quality/cost)
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://stablestudio.io/api/x402/nano-banana-pro/generate",
   method="POST",
   body={
@@ -56,8 +56,8 @@ mcp__x402__fetch(
 
 **Recommended: veo-3.1** (best quality/cost)
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://stablestudio.io/api/x402/veo-3.1/generate",
   method="POST",
   body={
@@ -76,8 +76,8 @@ mcp__x402__fetch(
 
 Generation returns a `jobId`. Poll until complete:
 
-```
-mcp__x402__fetch_with_auth(
+```mcp
+x402.fetch_with_auth(
   url="https://stablestudio.io/api/x402/jobs/{jobId}"
 )
 ```
@@ -88,8 +88,8 @@ Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`
 
 Requires uploading the source image first. See [rules/uploads.md](rules/uploads.md).
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://stablestudio.io/api/x402/nano-banana-pro/edit",
   method="POST",
   body={

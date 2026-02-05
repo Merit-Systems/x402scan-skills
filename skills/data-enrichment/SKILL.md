@@ -17,10 +17,12 @@ description: |
   - "find contact for", "get LinkedIn for", "get email for"
   - "employee at", "works at", "company details"
 
-  ALWAYS use mcp__x402__fetch for enrichx402.com endpoints - never curl or WebFetch.
+  ALWAYS use x402.fetch for enrichx402.com endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`/api/apollo/...` or `/api/clado/...`).
+mcp:
+  - x402
 ---
 
 # Data Enrichment with x402 APIs
@@ -48,14 +50,14 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
-- [ ] Use `mcp__x402__discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
-- [ ] Use `mcp__x402__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__x402__fetch`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
+- [ ] Use `x402.discover_api_endpoints(url="https://enrichx402.com")` to list all endpoints
+- [ ] Use `x402.check_endpoint_schema(url="...")` to see expected parameters and pricing
+- [ ] Call endpoint with `x402.fetch`
 - [ ] Parse and present results
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/people-enrich",
   method="POST",
   body={"email": "user@company.com"}
@@ -66,8 +68,8 @@ mcp__x402__fetch(
 
 Enrich a person using any available identifier:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/people-enrich",
   method="POST",
   body={
@@ -93,8 +95,8 @@ mcp__x402__fetch(
 
 Enrich a company by domain:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/org-enrich",
   method="POST",
   body={
@@ -109,8 +111,8 @@ mcp__x402__fetch(
 
 Search for people matching criteria:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/people-search",
   method="POST",
   body={
@@ -133,8 +135,8 @@ mcp__x402__fetch(
 
 Search for companies matching criteria:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/org-search",
   method="POST",
   body={
@@ -149,8 +151,8 @@ mcp__x402__fetch(
 
 Get full LinkedIn profile data:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/clado/linkedin-scrape",
   method="POST",
   body={
@@ -165,8 +167,8 @@ mcp__x402__fetch(
 
 Find missing email or phone:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/clado/contacts-enrich",
   method="POST",
   body={
@@ -182,8 +184,8 @@ mcp__x402__fetch(
 
 Process up to 10 records in one request:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/people-enrich/bulk",
   method="POST",
   body={
@@ -198,8 +200,8 @@ mcp__x402__fetch(
 
 For companies:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/apollo/org-enrich/bulk",
   method="POST",
   body={
@@ -249,10 +251,10 @@ Use search endpoints ($0.02) to find the right records before enriching ($0.0495
 
 When enriching multiple independent records, make calls in parallel:
 
-```
+```mcp
 # These can run simultaneously since they're independent
-mcp__x402__fetch(url=".../people-enrich", body={"email": "a@co.com"})
-mcp__x402__fetch(url=".../people-enrich", body={"email": "b@co.com"})
+x402.fetch(url=".../people-enrich", body={"email": "a@co.com"})
+x402.fetch(url=".../people-enrich", body={"email": "b@co.com"})
 ```
 
 Or use bulk endpoints for the best efficiency.

@@ -16,7 +16,9 @@ description: |
   - "business details", "opening hours", "reviews for"
   - "places in", "what's near", "directions to"
 
-  Use mcp__x402__fetch for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+  Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+mcp:
+  - x402
 ---
 
 # Local Search with Google Maps
@@ -44,8 +46,8 @@ See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guid
 
 Search for places by text query:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/text-search/partial",
   method="POST",
   body={
@@ -67,8 +69,8 @@ mcp__x402__fetch(
 
 Search for places near a location:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/nearby-search/partial",
   method="POST",
   body={
@@ -97,8 +99,8 @@ mcp__x402__fetch(
 
 Get detailed info for a specific place:
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/place-details/partial",
   method="POST",
   body={
@@ -134,21 +136,21 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `mcp__x402__get_wallet_info`
+- [ ] (Optional) Check balance: `x402.get_wallet_info`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/text-search/partial",
   method="POST",
   body={"textQuery": "Italian restaurants downtown Portland"}
 )
 ```
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/place-details/full",
   method="POST",
   body={"placeId": "ChIJ..."}
@@ -161,8 +163,8 @@ mcp__x402__fetch(
 - [ ] Search with location restriction and filters
 - [ ] Present sorted results
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/nearby-search/partial",
   method="POST",
   body={
@@ -185,8 +187,8 @@ mcp__x402__fetch(
 - [ ] Fetch full details for each candidate
 - [ ] Compare ratings, reviews, and amenities
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://enrichx402.com/api/google-maps/place-details/full",
   method="POST",
   body={"placeId": "place_id_here"}
