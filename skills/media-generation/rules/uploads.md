@@ -5,8 +5,8 @@ Upload images for editing or image-to-video. Cost: $0.01 per upload.
 ## Upload Flow
 
 **1. Get upload token** ($0.01)
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url="https://stablestudio.io/api/x402/uploads",
   method="POST",
   body={"filename": "image.png", "contentType": "image/png"}
@@ -27,8 +27,8 @@ curl -X PUT "https://vercel.com/api/blob/?pathname={pathname}" \
 Returns: `{url: "https://....blob.vercel-storage.com/..."}`
 
 **3. Confirm upload**
-```
-mcp__x402__fetch_with_auth(
+```mcp
+x402.fetch_with_auth(
   url="https://stablestudio.io/api/x402/uploads/confirm",
   method="POST",
   body={"uploadId": "...", "blobUrl": "https://..."}

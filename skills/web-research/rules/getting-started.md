@@ -8,12 +8,12 @@
    ```
 
 2. **Check wallet:**
-   ```
-   mcp__x402__get_wallet_info
+```mcp
+   x402.get_wallet_info
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `mcp__x402__redeem_invite(code="YOUR_CODE")`
+   - Redeem invite: `x402.redeem_invite(code="YOUR_CODE")`
    - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
 
 ## Troubleshooting

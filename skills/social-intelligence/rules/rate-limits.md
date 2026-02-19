@@ -56,20 +56,20 @@ x402 endpoints don't have strict rate limits per se, but:
 ## Efficient Usage Patterns
 
 ### Do This
-```
+```mcp
 # One targeted search
-mcp__x402__fetch(
+x402.fetch(
   url=".../reddit/search",
   body={"query": "specific topic", "subreddit": "relevant", "sort": "top"}
 )
 ```
 
 ### Avoid This
-```
+```mcp
 # Multiple broad searches for same topic
-mcp__x402__fetch(body={"query": "AI"})
-mcp__x402__fetch(body={"query": "artificial intelligence"})
-mcp__x402__fetch(body={"query": "machine learning"})
+x402.fetch(body={"query": "AI"})
+x402.fetch(body={"query": "artificial intelligence"})
+x402.fetch(body={"query": "machine learning"})
 ```
 
 Instead, craft one good query or search sequentially only when each result informs the next.

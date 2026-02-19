@@ -11,8 +11,8 @@ Upload any local file to S3-backed cloud storage via x402 micropayments. Returns
 
 ### 1. Check wallet balance
 
-```
-mcp__x402__get_wallet_info()
+```mcp
+x402.get_wallet_info()
 ```
 
 Ensure sufficient USDC balance for the chosen tier. If balance is low, show the deposit link.
@@ -29,8 +29,8 @@ Pick the smallest tier that fits the file. Check file size first with `ls -la` o
 
 ### 3. Buy the upload slot
 
-```
-mcp__x402__fetch(
+```mcp
+x402.fetch(
   url: "https://agentupload.dev/api/x402/upload",
   method: "POST",
   headers: {"Content-Type": "application/json"},
@@ -65,8 +65,8 @@ Present the `publicUrl` to the user. This URL is publicly accessible immediately
 
 To list uploads for the current wallet:
 
-```
-mcp__x402__fetch_with_auth(
+```mcp
+x402.fetch_with_auth(
   url: "https://agentupload.dev/api/x402/uploads",
   method: "GET"
 )
@@ -80,7 +80,7 @@ This uses SIWX (Sign-In With X) authentication, not x402 payment.
 - **Upload URLs expire in 1 hour** - upload promptly after buying the slot
 - **Public URLs last 6 months** from purchase date
 - **Any file type accepted** - contentType is advisory for the browser, not a restriction
-- **Discovery endpoint**: `mcp__x402__discover_api_endpoints(url: "https://agentupload.dev")` if you need to verify endpoints
+- **Discovery endpoint**: `x402.discover_api_endpoints(url: "https://agentupload.dev")` if you need to verify endpoints
 
 ## Common Patterns
 
